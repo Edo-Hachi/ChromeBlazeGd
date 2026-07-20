@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c2un8lkli8wnm"]
+
+[ext_resource type="Texture2D" uid="uid://7mw1cn31bn8l" path="res://images/Option Turret.png" id="1_n6jjf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_caiwd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n6jjf")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="OptionTurret" type="Area2D" unique_id=2094138626]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=389271363]
+sprite_frames = SubResource("SpriteFrames_caiwd")

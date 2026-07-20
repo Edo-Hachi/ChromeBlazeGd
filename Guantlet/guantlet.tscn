@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://btbo08ms0mh00"]
+
+[ext_resource type="Script" uid="uid://cgcolqiud5srf" path="res://Guantlet/guantlet.gd" id="1_jtcre"]
+[ext_resource type="Texture2D" uid="uid://sh6sabqvqjbw" path="res://images/Guantlet.png" id="1_vn83n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_caiwd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vn83n")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_caiwd"]
+radius = 11.0
+height = 54.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7s624"]
+radius = 6.0
+height = 22.0
+
+[node name="Guantlet" type="CharacterBody2D" unique_id=283933333]
+motion_mode = 1
+script = ExtResource("1_jtcre")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=601623387]
+z_index = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_caiwd")
+
+[node name="CollisionShape2D_ground" type="CollisionShape2D" parent="." unique_id=871931788]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_caiwd")
+debug_color = Color(0.6571566, 0.5159886, 0.05046293, 0.41960785)
+
+[node name="Area2D_hitbox" type="Area2D" parent="." unique_id=1725655319]
+
+[node name="CollisionShape2D_hitbox" type="CollisionShape2D" parent="Area2D_hitbox" unique_id=747622550]
+shape = SubResource("CapsuleShape2D_7s624")

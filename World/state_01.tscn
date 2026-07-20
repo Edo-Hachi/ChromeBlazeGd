@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dll1tohv75pua"]
+
+[ext_resource type="PackedScene" uid="uid://btbo08ms0mh00" path="res://Guantlet/guantlet.tscn" id="1_cja7k"]
+
+[node name="State01" type="Node2D" unique_id=685285764]
+
+[node name="Guantlet" parent="." unique_id=283933333 instance=ExtResource("1_cja7k")]
+position = Vector2(250, 263)
