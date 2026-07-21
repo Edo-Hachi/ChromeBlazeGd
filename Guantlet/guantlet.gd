@@ -7,10 +7,10 @@ const DELAY_FRAMES = 15
 const MAX_HISTORY = 120
 
 # 左右それぞれの角度テーブル (0から最大120度まで15度刻み)
-const OPT_ANGLES_R = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0,135.0, 150.0, 165.0, 180.0]
+const OPT_ANGLES_R = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0]
 const OPT_ANGLES_L = [0.0, -15.0, -30.0, -45.0, -60.0, -75.0, -90.0, -105.0, -120.0, -135.0, -150.0, -165.0, -180.0]
 
-@export var bullet_scene: PackedScene
+@export var bullet_scene: PackedScene = preload("res://Bullet/bullet.tscn")
 
 # オプションのプリロード
 const OPTION_SCENE = preload("res://OptionTurret/option_turret.tscn")
@@ -21,6 +21,11 @@ var option_right: Node2D
 # 座標履歴バッファ
 var position_history: Array[Vector2] = []
 var opt_ang_pos: float = 0.0 # 角度テーブルのインデックス値（スムーズに補間するためfloat）
+
+#@export var reload_time: int = 50 # リロードフレーム数 (調整可能)
+const RELOAD_TIME = 10 # リロードフレーム数 (調整可能)
+
+var reload_timer: int = 0         # リロードタイマー
 
 func _ready() -> void:
 	# 左右のオプションを生成
@@ -87,9 +92,14 @@ func _physics_process(delta: float) -> void:
 	# レーザー線の描画を更新
 	queue_redraw()
 
-	# 弾の発射処理
-	if Input.is_action_just_pressed("ui_select") or Input.is_action_just_pressed("shoot"):
+	# リロードタイマーの減算処理
+	if reload_timer > 0:
+		reload_timer -= 1
+
+	# 弾の発射処理（押しっぱなし連射対応）
+	if reload_timer == 0 and (Input.is_action_pressed("ui_shot") or Input.is_action_pressed("ui_select") or Input.is_action_pressed("shoot")):
 		shoot()
+		reload_timer = RELOAD_TIME
 
 func _draw() -> void:
 	# 自機の中心 (Vector2.ZERO) から左右のオプションへの赤いラインを描画
